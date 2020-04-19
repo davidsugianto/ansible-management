@@ -3,3 +3,8 @@ roles/loadbalancer
 roles/loadbalancer_logs
 roles/loadbalancer_update
 roles/loadbalancer_vhost
+
+roles/telegraf/templates/loadbalancer_logs/geometrics/geoip
+roles/telegraf/templates/loadbalancer_logs/geometrics/*.tar.gz
+
+roles/nuxt-setup-project
