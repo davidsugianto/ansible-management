@@ -1,0 +1,8 @@
+## Ansible Role : Bad Bots Blocker
+- name: Bad Blocker setup.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - bad-blocker

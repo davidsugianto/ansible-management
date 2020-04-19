@@ -1,0 +1,10 @@
+# Ansible Role: SELinux port in centos server
+- name: SELinux port Setup.
+  hosts: server
+  become: yes
+  gather_facts: no
+  vars:
+    selinux_port:
+      - {ports: 80, setype: http_port_t}
+  roles:
+    - selinux

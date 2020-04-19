@@ -1,0 +1,13 @@
+# Ansible Role : Setup monitoring apps
+- name: Monitoring infrastructure setup.
+  hosts: ubuntu
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    docker_app_name: docker-monitoring-tig
+    docker_path: /home/docker-monitoring-tig
+    docker_repo: https://github.com/davidsugianto/docker-tig.git
+    docker_logs: /home/docker-monitoring-tig/logs
+  roles:
+    - monitoring

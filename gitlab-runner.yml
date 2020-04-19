@@ -1,0 +1,16 @@
+# Ansible Role : install gitlab-runner
+- name: Gitlab Runner setup.
+  hosts: ubuntu
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - gitlab-runner
+
+- name: Gitlab Runner setup.
+  hosts: centos
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - gitlab-runner

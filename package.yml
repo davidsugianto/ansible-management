@@ -1,0 +1,26 @@
+# Ansible Role : install package
+- hosts: ubuntu
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'Debian'
+  remote_user: root
+  vars:
+    deb_package:
+      - name: git
+      - name: wget
+      - name: ntp
+  roles:
+    - package
+
+- hosts: centos
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'RedHat'
+  remote_user: root
+  vars:
+    redhat_package:
+      - name: git
+      - name: wget
+      - name: ntp
+  roles:
+    - package

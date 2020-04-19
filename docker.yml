@@ -1,0 +1,30 @@
+## Ansible Role : Docker
+- name: Docker container platform setup.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'Debian'
+  remote_user: root
+  vars:
+    pip_package: python3-pip
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+  roles:
+    - pip
+    - docker
+
+- name: Docker container platform setup.
+  hosts: centos
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'RedHat'
+  remote_user: root
+  vars:
+    pip_package: python-pip
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+  roles:
+    - pip
+    - docker

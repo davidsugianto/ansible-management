@@ -1,0 +1,15 @@
+# Ansible Role : Setup Database apps
+- name: Database server setup.
+  hosts: ubuntu
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    docker_app_name: docker-postgresql
+    docker_path: /home/docker-postgresql
+    docker_repo: https://github.com/davidsugianto/docker-postgresql.git
+    docker_logs: /home/docker-postgresql/logs
+    env_source:
+      - { src: '.env.j2', dest: '/home/docker-postgresql' }
+  roles:
+    - database

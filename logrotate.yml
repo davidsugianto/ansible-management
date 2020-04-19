@@ -1,0 +1,21 @@
+# Ansible Role: Setup Logrotate
+- name: Setup Logrotate
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    logrotate_scripts:
+      - name: nginx
+        path: /var/log/nginx/*.log
+        options:
+          - daily
+          - rotate 3
+          - missingok
+          - notifempty
+          - compress
+          - sharedscripts
+        scripts:
+          postrotate: "/bin/kill -USR1 `cat /run/nginx.pid 2>/dev/null` 2>/dev/null || true"
+  roles:
+    - logrotate

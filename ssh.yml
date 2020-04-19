@@ -1,0 +1,11 @@
+# Ansible Role : ssh
+- name: Ssh key Authorization setup.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    ssh_pub: ssh_privte
+    ssh_private: ssh_public.pub
+  roles:
+    - ssh

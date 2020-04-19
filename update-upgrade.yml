@@ -1,0 +1,8 @@
+## Ansible Role : Updates upgrade
+- name: updates and upgrades package ubuntu server
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - update-upgrade

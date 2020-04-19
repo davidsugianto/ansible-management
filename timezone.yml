@@ -1,0 +1,9 @@
+# set timezone Asia/Jakarta all server
+- name: Setup timezone all server
+  hosts: demoskusvr
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Set timezone to Asia/Jakarta
+      timezone:
+        name: Asia/Jakarta

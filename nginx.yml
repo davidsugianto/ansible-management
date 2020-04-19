@@ -1,0 +1,18 @@
+## Ansible Role : Nginx
+- name: Nginx Webserver instalation.
+  hosts: ubuntu
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'Ubuntu'
+  remote_user: root
+  roles:
+    - nginx
+
+- name: Nginx Webserver instalation.
+  hosts: centos
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'RedHat'
+  remote_user: root
+  roles:
+    - nginx

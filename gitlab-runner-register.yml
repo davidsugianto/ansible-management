@@ -1,0 +1,44 @@
+# Ansible Role : register gitlab-runner
+- name: Gitlab Runner Docker executor.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    gitlab_token: 'gitlab_token' ## gitlab repo token
+    gitlab_runner_name: 'gitlab_runner_name' ## gitlab runner name
+    gitlab_runner_tags: 'gitlab_runner_tags' ## gitlab runner tags
+    gitlab_runner_executor: 'docker' ## gitlab runner executor
+    gitlab_runner_docker_image: 'docker:19.03.5'
+    gitlab_runner_builds_dir: '/home/gitlab-runner/repo_path/builds' ## gitlab runner initial repo project
+    gitlab_runner_cache_dir: '/home/gitlab-runner/repo_path/cache' ## gitlab runner repo cache
+    gitlab_runner_description: 'gitlab_runner_description' ## gitlab runner description
+    gitlab_runner_docker_volumes: "/path:/path" ## docker volume apps
+    gitlab_directory: ## gitlab directory
+      - { dest: '/home/path/repo_path', mode: '0775'} ## directory 
+      - { dest: '/home/path/repo_path/builds', mode: '0775'} ## directory 
+      - { dest: '/home/path/repo_path/cache', mode: '0775'} ## directory
+      - { dest: '/home/path', mode: '0775'} ## directory
+  roles:
+    - register-runner
+  
+
+- name: Gitlab Runner Shell executor.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    gitlab_token: 'gitlab_token' ## gitlab repo token
+    gitlab_runner_name: 'gitlab_runner_name' ## gitlab runner name
+    gitlab_runner_tags: 'gitlab_runner_tags' ## gitlab runner tags
+    gitlab_runner_executor: shell ## gitlab runner executor
+    gitlab_runner_builds_dir: '/home/gitlab-runner/repo_path/builds' ## gitlab runner initial repo project
+    gitlab_runner_cache_dir: '/home/gitlab-runner/repo_path/cache' ## gitlab runner repo cache
+    gitlab_runner_description: 'gitlab_runner_description' ## gitlab runner description
+    gitlab_directory: ## gitlab directory
+      - { dest: '/home/path/repo_peth', mode: '0775'} ## directory 
+      - { dest: '/home/path/repo_peth/builds', mode: '0775'} ## directory 
+      - { dest: '/home/path/repo_peth/cache', mode: '0775'} ## directory
+  roles:
+    - register-runner

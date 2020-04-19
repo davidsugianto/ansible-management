@@ -1,0 +1,21 @@
+## Ansible Role : Firewalld
+- name: Firewalld Setup.
+  hosts: server
+  become: yes
+  gather_facts: yes
+  tags: ansible_os_family == 'Debian'
+  remote_user: root
+  vars:
+    ansible_python_interpreter: '/usr/bin/python3'
+    firewall_interface_zone:
+      - {zone: public, interface: eth0}
+      - {zone: work, interface: eth1}
+    firewall_service:
+      - {service: ssh, zone: public}
+    firewall_port:
+      - {port: 22/tcp, zone: public}
+      - {port: 5432/tcp, zone: work}
+    firewall_zone:
+      - zone: work
+  roles:
+    - firewalld

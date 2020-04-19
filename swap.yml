@@ -1,0 +1,11 @@
+# Ansible Role: create swap
+- name: Add swap file to server
+  hosts: server
+  become: yes
+  become_user: root
+  gather_facts: yes
+  vars:
+    swap_file_size_mb: '2048'
+
+  roles:
+    - swap

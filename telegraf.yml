@@ -1,0 +1,10 @@
+# Ansible Role : telegraf
+- name: Telegraf Agent
+  hosts: server
+  become: yes
+  gather_facts: yes
+  remote_user: root
+  vars:
+    telegraf_agent: telegraf.conf
+  roles:
+    - telegraf
