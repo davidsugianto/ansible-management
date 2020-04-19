@@ -1,0 +1,21 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    pip_package: python-pip
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+    docker_app_name: docker-monitoring-tig
+    docker_path: /home/docker-monitoring-tig
+    docker_repo: git@gitlab.com:picasso-code/docker-monitoring-tig.git
+    docker_logs: /home/docker-monitoring-tig/logs
+  pre_tasks:
+    - name: Install Docker.
+      include_role:
+        name: docker
+    - name: Install pip package.
+      include_role:
+        name: pip
+  roles:
+    - role: monitoring

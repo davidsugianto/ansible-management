@@ -1,0 +1,13 @@
+---
+# tasks file for telegraf
+- include_tasks: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Start service telegraf.
+  service:
+    name: telegraf
+    state: started
+    enabled: yes

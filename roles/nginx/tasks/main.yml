@@ -1,0 +1,22 @@
+---
+# tasks file for nginx
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+# - include_tasks: setup-Ubuntu.yml
+#   when: ansible_distribution == 'Ubuntu'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Test nginx
+  command: nginx -t
+
+- name: Ensure nginx service is running as configured.
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
+
+- name: Reload nginx
+  command: nginx -s reload

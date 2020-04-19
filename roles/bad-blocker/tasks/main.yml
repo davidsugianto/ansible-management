@@ -1,0 +1,33 @@
+---
+# tasks file for bad-blocker
+
+- name: Download ngx-blocker
+  get_url:
+    url: https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/install-ngxblocker
+    dest: /usr/local/sbin/install-ngxblocker
+    mode: a+x
+
+- name: run install-ngxblocker -x
+  shell: ./install-ngxblocker -x
+  args:
+    chdir: /usr/local/sbin/
+
+- name: Changing perm of "/usr/local/sbin/setup-ngxblocker", adding "+x"
+  file: 
+    dest: /usr/local/sbin/update-ngxblocker
+    mode: a+x
+
+- name: Creates a cron file under /etc/cron.d
+  cron:
+    name: update ngxblocker
+    minute: "30"
+    hour: "23"
+    user: root
+    job: "/usr/local/sbin/update-ngxblocker"
+    state: present
+
+- name: nginx test
+  command: nginx -t
+
+- name: nginx reload
+  command: nginx -s reload

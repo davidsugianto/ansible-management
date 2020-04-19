@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/python'
+    selinux_port:
+      - {ports: 8250, setype: http_port_t}
+  roles:
+    - role: selinux

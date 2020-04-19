@@ -1,0 +1,34 @@
+---
+
+# - name: Add GitLab apt key.
+#   apt_key:
+#     url: https://packages.gitlab.com/gpg.key
+#     state: present
+
+# - name: Install GitLab Runner dependencies
+#   apt:
+#     name: '{{ item }}'
+#     state: present
+#   with_items:
+#     - debian-archive-keyring
+#     - apt-transport-https
+
+# - name: Add GitLab Runner apt repo.
+#   apt_repository:
+#     repo: 'deb https://packages.gitlab.com/runner/{{ gitlab_runner_package }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main'
+#     state: present
+
+- name: Execute Gitlab repo key.
+  shell: curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash
+
+- name: Install GitLab Runner.
+  apt:
+    name: gitlab-runner
+    state: latest
+    update_cache: yes
+
+- name: restart runner.
+  service:
+    name: gitlab-runner
+    state: restarted
+    enabled: yes

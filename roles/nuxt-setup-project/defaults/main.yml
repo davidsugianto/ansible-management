@@ -1,0 +1,7 @@
+---
+# defaults file for nuxt-setup-project
+apps_name: []
+apps_path: []
+apps_repo: []
+env_source: []
+package_json: []

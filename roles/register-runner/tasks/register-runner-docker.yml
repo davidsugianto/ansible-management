@@ -1,0 +1,38 @@
+---
+
+- name: List configured runners Docker executor
+  command: gitlab-runner list
+  register: configured_runners
+  changed_when: false
+  tags: docker
+
+- name: Register runner to GitLab "{{ gitlab_runner_description }}".
+  command: gitlab-runner register >
+    --non-interactive
+    --url '{{ gitlab_runner_coordinator_url }}'
+    --registration-token '{{ gitlab_token }}'
+    --name '{{ gitlab_runner_name }}'
+    --tag-list '{{ gitlab_runner_tags }}'
+    --executor {{ gitlab_runner_executor }}
+    --docker-image '{{ gitlab_runner_docker_image }}'
+    --docker-privileged
+    --docker-volumes "{{ gitlab_runner_docker_volumes }}"
+    --builds-dir '{{ gitlab_runner_builds_dir }}'
+    --cache-dir '{{ gitlab_runner_cache_dir }}'
+  when: configured_runners.stdout.find("{{ gitlab_runner_description }}") == -1
+  tags: docker
+
+- name: Restart runner.
+  service:
+    name: gitlab-runner
+    state: restarted
+    enabled: yes
+  tags: docker
+
+- name: Create directory gitlab_runner
+  file:
+    path: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    state: directory
+  with_items: "{{ gitlab_directory }}"
+  tags: docker

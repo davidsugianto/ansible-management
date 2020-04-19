@@ -1,0 +1,9 @@
+---
+
+- name: Update Debian package.
+  apt:
+    update_cache: yes
+
+- name: Update all Debian packages to the latest version.
+  apt:
+    upgrade: dist

@@ -1,0 +1,11 @@
+---
+
+- name: Update Debian package.
+  apt:
+    update_cache: yes
+
+- name: Install package.
+  apt:
+    name: "{{ item.name }}"
+    state: latest
+  with_items: "{{ deb_package }}"

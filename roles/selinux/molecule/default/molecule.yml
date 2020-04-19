@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: centos
+    image: centos:7
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: true
+    options:
+      x: 
+        - ANSIBLE0002
+        - ANSIBLE0010
+        - ANSIBLE0012
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

@@ -1,0 +1,4 @@
+---
+# defaults file for package
+deb_package: []
+redhat_package: []

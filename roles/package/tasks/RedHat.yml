@@ -1,0 +1,13 @@
+---
+
+- name: Update RedHat package
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Install package.
+  yum:
+    name: "{{ item.name }}"
+    state: latest
+  with_items: "{{ redhat_package }}"

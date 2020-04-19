@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    firewall_interface_zone:
+      - {zone: public, interface: eth0}
+      - {zone: work, interface: eth1}
+    firewall_service:
+      - {service: ssh, zone: public}
+    firewall_port:
+      - {port: 22/tcp, zone: public}
+      - {port: 5432/tcp, zone: work}
+    firewall_zone:
+      - zone: work
+  roles:
+    - role: firewalld

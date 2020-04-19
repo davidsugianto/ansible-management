@@ -1,0 +1,26 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Install package deb.
+      apt:
+        name:
+          - wget
+          - git
+          - curl
+        state: latest
+      when: ansible_os_family == 'Debian'
+    - name: Install package RedHat.
+      yum:
+        name: "{{ item.name }}"
+        state: latest
+      with_items:
+        - name: git
+        - name: wget
+        - name: curl
+      when: ansible_os_family == 'RedHat'
+    - name: Install nginx.
+      include_role:
+        name: nginx
+  roles:
+    - role: bad-blocker

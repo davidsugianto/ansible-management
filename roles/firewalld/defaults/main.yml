@@ -1,0 +1,6 @@
+---
+# defaults file for firewalld
+firewall_service: []
+firewall_port: []
+firewall_interface_zone: []
+firewall_zone: []

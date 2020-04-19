@@ -1,0 +1,24 @@
+---
+
+- name: Add PPA for Nginx.
+  apt_repository:
+    repo: 'ppa:nginx/{{ nginx_ppa_version }}'
+    state: present
+    update_cache: true
+  register: nginx_ppa_added
+  when: nginx_ppa_use | bool
+
+- name: Ensure nginx will reinstall if the PPA was just added.
+  apt:
+    name: nginx
+    state: absent
+  when: nginx_ppa_added.changed
+  tags: ['skip_ansible_lint']
+
+- name: Copy nginx configuration in place.
+  template:
+    src: nginx.ubuntu.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644

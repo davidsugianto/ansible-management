@@ -1,0 +1,19 @@
+---
+# tasks file for ssh
+- name: cretae SSH Key in server frontend
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - {src: '{{ ssh_private }}', dest: '/root/.ssh/id_rsa'}
+    - {src: '{{ ssh_pub }}', dest: '/root/.ssh/id_rsa.pub'}
+
+- name: directory permissions
+  file: 
+    path: /root/.ssh
+    mode: '0600'
+
+- name: directory permissions
+  file: 
+    path: /root/.ssh/id_rsa
+    mode: '0400'

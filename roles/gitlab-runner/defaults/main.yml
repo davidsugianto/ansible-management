@@ -1,0 +1,8 @@
+---
+# defaults file for gitlab-runner
+gitlab_runner_concurrent: '{{ ansible_processor_cores }}'
+gitlab_runner_package: "gitlab-runner"
+gitlab_runner_check_interval: 0
+gitlab_runner_coordinator_url: 'https://gitlab.com'
+gitlab_runner_docker_image: 'docker:19.03.4'
+gitlab_directory: []

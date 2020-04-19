@@ -1,0 +1,7 @@
+---
+# handlers file for monitoring
+
+- name: restart ssh
+  systemd:
+    name: ssh
+    state: restarted

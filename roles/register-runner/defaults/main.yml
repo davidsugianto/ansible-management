@@ -1,0 +1,19 @@
+---
+# defaults file for register-runner
+gitlab_runner_concurrent: '{{ ansible_processor_cores }}'
+gitlab_runner_package: "gitlab-runner"
+gitlab_runner_check_interval: 0
+
+gitlab_runner_coordinator_url: 'https://gitlab.com'
+gitlab_runner_description: 'Picasso Docker / Shell'
+gitlab_token: 'ps_j395CjEWUB3mTN5kT'
+gitlab_runner_name: 'Picasso Docker / Shell'
+gitlab_runner_tags: 'ps-backend-sh'
+gitlab_runner_executor: 'shell'
+gitlab_runner_docker_volumes: '/home/App/backend:/home/gitlab-runner/backend_docker/builds/picasso-code/backend-v1/backend/build/dist'
+gitlab_runner_builds_dir: '/home/gitlab-runner/backend_sh/builds'
+gitlab_runner_cache_dir: '/home/gitlab-runner/backend_sh/cache'
+gitlab_runner_docker_image: 'docker:19.03.5'
+
+gitlab_directory: []
+# gitlab_executor: []

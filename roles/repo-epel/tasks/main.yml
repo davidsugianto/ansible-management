@@ -1,0 +1,24 @@
+---
+# tasks file for repo-epel
+- name: Check EPEL Repo is already configured
+  stat:
+    path: "{{ epel_repofile_path }}"
+  register: epel_repofile_result
+
+- name: Install EPEL repo
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+  register: result
+  until: result is succeeded
+  retries: 5
+  delay: 10
+  when: not epel_repofile_result.stat.exists
+
+- name: install Dependencies
+  yum:
+    name:
+      - wget
+      - git
+      - curl
+    state: latest

@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/python'
+    pip_package: python-pip
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+  pre_tasks:
+    - name: Pip package.
+      include_role:
+        name: pip
+  roles:
+    - role: docker

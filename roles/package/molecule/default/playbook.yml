@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    deb_package:
+      - name: git
+      - name: wget
+      - name: curl
+  roles:
+    - role: package

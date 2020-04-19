@@ -1,0 +1,23 @@
+---
+# tasks file for selinux
+- name: Install libselinux-python.
+  yum:
+    name:
+      - selinux-policy
+      - libselinux-python
+      - policycoreutils-python
+    state: present
+
+- name: Enable SELinux.
+  selinux:
+    policy: targeted
+    state: enforcing
+  
+- name: Add SELinux port Setup.
+  seport:
+    ports: "{{ item.ports }}"
+    proto: tcp
+    setype: "{{ item.setype }}"
+    state: present
+    reload: yes
+  with_items: "{{ selinux_port }}"

@@ -1,0 +1,56 @@
+---
+
+- name: install firewalld
+  shell: yum install firewalld -y
+
+- name: python2 binding
+  yum:
+    name: python-firewall
+    state: latest
+
+- name: start firewall
+  systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: setup interfaces to zone
+  firewalld:
+    zone: "{{ item.zone }}"
+    interface: "{{ item.interface }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items: "{{ firewall_interface_zone }}"
+
+- name: setup service firewalld to zone 
+  firewalld:
+    service: "{{ item.service }}"
+    zone: "{{ item.zone }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items: "{{ firewall_service }}"
+
+- name: setup port firewalld to zone
+  firewalld:
+    port: "{{ item.port }}"
+    zone: "{{ item.zone }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items: "{{ firewall_port }}"
+
+- name: setup firewalld zone enabled
+  firewalld:
+    zone: "{{ item.zone }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items: "{{ firewall_zone }}"
+
+- name: start firewall
+  systemd:
+    name: firewalld
+    state: restarted
+    enabled: yes

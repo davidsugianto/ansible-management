@@ -1,0 +1,33 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    pip_package: python-pip
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+    docker_app_name: docker-frontend-hotel
+    docker_path: /home/docker-frontend-hotel
+    docker_repo: git@gitlab.com:picasso-code/docker-frontend-hotel.git
+    docker_logs: /home/odocker-frontend-hotel/lgs
+    env_source: 
+      - {src: '.env-picasso.j2', dest: '/home/docker-frontend-hotel/.env'}
+    apps_path: 
+      - path: /home/docker-frontend-hotel/public-html/hotel-staging
+      - path: /home/docker-frontend-hotel/public-html/hotel-production
+    apps_repo: 
+      - { repo: 'git@gitlab.com:picasso-code/hotel-landing.git', dest: '/home/docker-frontend-hotel/public-html/hotel-staging'}
+      - { repo: 'git@gitlab.com:picasso-code/hotel-landing.git', dest: '/home/docker-frontend-hotel/public-html/hotel-production'}
+    package_json:
+      - {src: 'package-member.json.j2', dest: '/home/docker-frontend-hotel/public-html/member-staging/package.json'}
+      - {src: 'package-hotel.json.j2', dest: '/home/docker-frontend-hotel/public-html/hotel-staging/package.json'}
+  pre_tasks:
+    - name: Install Docker.
+      include_role:
+        name: docker
+    - name: Install pip package.
+      include_role:
+        name: pip
+
+  roles:
+    - role: nuxt-setup-project

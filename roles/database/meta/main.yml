@@ -1,0 +1,17 @@
+dependencies: []
+
+galaxy_info:
+  author: David Sugianto
+  description: Setup Database server with Dockerize.
+  company: "Picassorewards"
+  license: license (GPL-3.0-only)
+  min_ansible_version: 2.4
+  platforms:
+  - name: centos
+    versions:
+    - 7
+  - name: ubuntu
+    versions:
+    - 18.04
+
+  galaxy_tags: []

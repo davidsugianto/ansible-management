@@ -1,0 +1,8 @@
+---
+
+- name: Create directory gitlab_runner
+  file:
+    path: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    state: directory
+  with_items: "{{ gitlab_directory }}"

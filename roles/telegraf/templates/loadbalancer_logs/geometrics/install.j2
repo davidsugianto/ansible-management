@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+WORKDIR=$(pwd)
+
+echo ""
+echo "Creating virtual ENV and installing requirements..."
+sleep 1
+virtualenv geoenv && source geoenv/bin/activate
+
+pip install -r requirements.txt && deactivate
+
+echo ""
+echo "Installing SystemD service..."
+sleep 1
+while read line
+do
+    eval echo "$line"
+done < "./geostat.service.template" > /lib/systemd/system/geostat.service
+
+systemctl enable geostat.service
+
+echo ""
+echo "All done, now you can start getting GEO data from your log"
+echo "run 'systemctl start geostat.service' for this"
+echo "Good Luck !"

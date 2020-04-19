@@ -1,0 +1,21 @@
+---
+
+# - name: Add GitLab apt key.
+#   yum:
+#     name: https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh
+#     state: present
+
+- name: Execute Gitlab repo key.
+  shell: curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
+
+- name: Install GitLab Runner.
+  yum:
+    name: gitlab-runner
+    state: latest
+    update_cache: yes
+
+- name: restart runner.
+  systemd:
+    name: gitlab-runner
+    state: restarted
+    enabled: yes

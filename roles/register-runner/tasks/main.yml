@@ -1,0 +1,12 @@
+---
+# tasks file for register-runner
+
+- name: Register runner docker executor.
+  include_tasks: register-runner-docker.yml
+  tags: 
+    - docker
+
+- name: Register runner shell executor.
+  include_tasks: register-runner-shell.yml
+  tags:
+    - shell

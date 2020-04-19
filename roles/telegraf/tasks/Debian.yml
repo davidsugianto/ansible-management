@@ -1,0 +1,44 @@
+---
+
+- name: Download telegraf metrics agent.
+  get_url:
+    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.13.1-1_amd64.deb
+    dest: /opt
+    mode: '0777'
+    checksum: sha256:7b857c955f2f83085d8419c58a0cfb83e5e0263736144227a94aed05f04f5168
+
+- name: Install telegraf metrics agent.
+  command: dpkg -i telegraf_1.13.1-1_amd64.deb
+  args:
+    chdir: /opt
+
+- name: Telegraf config metrics.
+  template:
+    src: "{{ item }}"
+    dest: /etc/telegraf/telegraf.conf
+  with_items: "{{ telegraf_agent }}"
+
+- name: Root access /etc/telegraf.
+  file:
+    path: /etc/telegraf
+    state: directory
+    recurse: yes
+    owner: root
+    group: root
+
+- name: Permission docker to tekegraf.
+  command: usermod -aG docker telegraf
+
+- name: Install python3-pip.
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python3-pip
+    - python3-virtualenv
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
