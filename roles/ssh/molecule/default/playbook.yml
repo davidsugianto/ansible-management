@@ -1,8 +1,0 @@
----
-- name: Converge
-  hosts: all
-  vars:
-    ssh_pub: test
-    ssh_private: test.pub
-  roles:
-    - role: ssh
