@@ -36,22 +36,20 @@ None.
       gather_facts: yes
       remote_user: root
       vars:
-        docker_app_name: docker-frontend-hotel
-        docker_path: /home/docker-frontend-hotel
-        docker_repo: git@gitlab.com:picasso-code/docker-frontend-hotel.git
-        docker_logs: /home/docker-frontend-hotel/logs
+        docker_app_name: docker-nuxt
+        docker_path: /home/docker-nuxt
+        docker_repo: https://github.com/davidsugianto/nuxtjs-pm2.git
+        docker_logs: /home/docker-nuxt/logs
         env_source: 
-          - {src: '.env-picasso.j2', dest: '/home/docker-frontend-hotel/.env'}
+          - {src: '.env-picasso.j2', dest: '/home/docker-nuxt/.env'}
         apps_path: 
-          - path: /home/docker-frontend-hotel/public-html/hotel-staging
-          - path: /home/docker-frontend-hotel/public-html/hotel-production
-          - path: /home/docker-frontend-hotel/public-html/member-staging
-          - path: /home/docker-frontend-hotel/public-html/member-production
+          - path: /home/docker-nuxt/public-html/nuxt-staging
+          - path: /home/docker-nuxt/public-html/nuxt-production
         apps_repo: 
-          - { repo: 'git@gitlab.com:picasso-code/hotel-landing.git', dest: '/home/docker-frontend-hotel/public-html/hotel-staging'}
-          - { repo: 'git@gitlab.com:picasso-code/hotel-landing.git', dest: '/home/docker-frontend-hotel/public-html/hotel-production'}
+          - { repo: 'https://github.com/davidsugianto/argocd-app-demo.git', dest: '/home/docker-nuxt/public-html/nuxt-staging'}
+          - { repo: 'https://github.com/davidsugianto/argocd-app-demo.git', dest: '/home/docker-nuxt/public-html/nuxt-production'}
         package_json:
-          - {src: 'package-member.json.j2', dest: '/home/docker-frontend-hotel/public-html/member-staging/package.json'}
-          - {src: 'package-hotel.json.j2', dest: '/home/docker-frontend-hotel/public-html/hotel-staging/package.json'}
+          - {src: 'package-nuxt.json.j2', dest: '/home/docker-nuxt/public-html/nuxt-staging/package.json'}
+          - {src: 'package-nuxt.json.j2', dest: '/home/docker-nuxt/public-html/nuxt-production/package.json'}
       roles:
         - nuxt-setup-project
