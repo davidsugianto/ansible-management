@@ -8,3 +8,5 @@ roles/telegraf/templates/loadbalancer_logs/geometrics/geoip
 roles/telegraf/templates/loadbalancer_logs/geometrics/*.tar.gz
 
 roles/nuxt-setup-project
+roles/laravel-project
+laravel-project.yml
