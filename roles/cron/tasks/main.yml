@@ -1,0 +1,35 @@
+---
+# tasks file for cron
+
+- name: Install cron
+  package:
+    name: cron
+    state: latest
+
+- name: Jobs script files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}" 
+    mode: "{{ item.mode }}"
+  with_items: "{{ jobs_script }}"
+
+- name: Jobs logs directory
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ jobs_logs }}"
+
+- name: Creates a cron file
+  cron:
+    name: "{{ cron_name }}"
+    minute: "{{ cron_minute }}"
+    hour: "{{ cron_hour }}"
+    day: "{{ cron_day }}"
+    month: "{{ cron_month }}"
+    weekday: "{{ cron_weekday }}"
+    user: "{{ cron_user }}"
+    job: "{{ cron_job }}"
+    cron_file: "{{ cron_files }}"
+    #  notify:
+      #    - cron restart

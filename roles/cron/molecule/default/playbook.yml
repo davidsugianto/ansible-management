@@ -1,0 +1,21 @@
+---
+- name: Setup Cronjob
+  hosts: all
+  remote_user: root
+  vars:
+    ansible_python_interpreter: '/usr/bin/python'
+    jobs_script:
+      - { src: 'jobs_a.sh', dest: '/opt/jobs_a.sh', mode: '0777' }
+    jobs_logs:
+      - { path: '/var/log/cron.log', state: 'touch', mode: '0777' }
+    cron_name: Ansible example cronjob
+    cron_minute: "*/5"
+    cron_hour: "*"
+    cron_day: "*"
+    cron_month: "*"
+    cron_weekday: "*"
+    cron_job: "/opt/jobs_a.sh"
+    cron_files: ansible_cron-example
+    cron_user: root
+  roles:
+    - cron

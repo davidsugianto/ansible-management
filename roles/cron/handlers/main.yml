@@ -1,0 +1,12 @@
+---
+# handlers file for cron
+- name: cron start
+  service:
+    name: cron
+    state: started
+
+- name: cron restart
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: cron
