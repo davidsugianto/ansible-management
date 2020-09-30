@@ -3,28 +3,19 @@ dependency:
   name: galaxy
 driver:
   name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 platforms:
   - name: ubuntu18 
     image: idiots718/ubuntu18-ansible
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
-    enabled: true
-    options:
-      x: 
-        - ANSIBLE0002
-        - ANSIBLE0006
-        - ANSIBLE0007
-        - ANSIBLE0013
-        - ANSIBLE0010
-        - ANSIBLE0012
-  playbooks:
-    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 verifier:
   name: ansible
