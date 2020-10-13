@@ -1,0 +1,13 @@
+---
+# tasks file for certbot
+- name: Install certbot.
+  package:
+    name: certbot
+    state: present
+
+- include_tasks: create-cert.yml
+  with_items: "{{ certbot_certs }}"
+  when:
+    - certbot_create_method == 'standalone'
+  loop_control:
+    loop_var: cert_item

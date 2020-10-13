@@ -1,0 +1,25 @@
+---
+- name: Setup certbot.
+  hosts: server
+  become: true
+  vars:
+    certbot_admin_email: youremail@gmail.com
+    certbot_stop_services:
+      - nginx
+    certbot_certs:
+      - domains:
+          - exampledomain.io
+          - a.exampledomain.io
+          - b.exampledomain.io
+  pre_tasks:
+    - name: Update apt cache.
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+    - name: Install dependency RedHat.
+      yum:
+        name: epel-release
+        state: present
+      when: ansible_os_family == 'RedHat'
+  roles:
+    - certbot

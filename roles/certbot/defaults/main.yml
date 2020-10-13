@@ -1,0 +1,20 @@
+---
+# defaults file for certbot
+# Parameters used when creating new Certbot certs.
+certbot_create_if_missing: false
+certbot_create_method: standalone
+certbot_admin_email: a@email.com
+certbot_certs: []
+  # - email: a@email.com
+  #   domains:
+  #     - example1.com
+  #     - example2.com
+  # - domains:
+  #     - example3.com
+certbot_create_command: >-
+  certbot certonly --standalone --noninteractive --agree-tos 
+  --email {{ cert_item.email | default(certbot_admin_email) }}
+  -d {{ cert_item.domains | join(',') }}
+
+certbot_stop_services:
+  - nginx
