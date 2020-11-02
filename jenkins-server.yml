@@ -1,0 +1,5 @@
+---
+- name: Setup jenkins server
+  hosts: jenkinsserver
+  roles:
+    - jenkins-server
