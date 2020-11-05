@@ -1,0 +1,34 @@
+---
+- name: Intro
+  debug:
+    msg: "Setup Jenkins Server on Debian base"
+
+- name: Download the package list from the repository and update it
+  apt:
+    update_cache: yes
+
+- name: Install java
+  apt:
+    name: "{{ java.DEBIAN_VERSION }}"
+    state: latest
+    update_cache: yes
+
+- name: Import GPG key
+  apt_key:
+    url: "{{ jenkins.DEBIAN_GPG_KEY }}"
+    state: present
+
+- name: Add jenkins repository
+  apt_repository:
+    repo: "{{ jenkins.DEBIAN_REPO }}"
+    state: present
+    update_cache: yes
+    filename: jenkins
+
+- name: Install jenkins
+  apt:
+    name: jenkins
+    update_cache: yes
+    state: present
+  notify:
+    - Start Jenkins

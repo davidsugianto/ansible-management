@@ -1,0 +1,27 @@
+---
+- name: Intro
+  debug:
+    msg: "Setup jenkins server in ubuntu"
+
+- name: Download package list from the repository and update it
+  apt:
+    update_cache: yes
+
+- name: Download Java JDK with checksum
+  get_url:
+    url: "{{ java.JDK_URL }}"
+    dest: /opt
+    # checksum: "{{ java.JDK_CHECKSUM }}"
+
+- name: Download Java JRE with checksum
+  get_url:
+    url: "{{ java.JRE_URL }}"
+    dest: /opt
+    # checksum: "{{ java.JRE_CHECKSUM }}"
+
+- name: Install Java JDK and JRE
+  apt:
+    deb: "{{ item }}"
+  with_items:
+    - "{{ java.JDK_PACKAGE }}"
+    - "{{ java.JRE_PACKAGE }}"

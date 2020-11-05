@@ -1,0 +1,31 @@
+---
+- name: Intro
+  debug:
+    msg: "Setup Jenkins Server on RedHat base"
+
+- name: Install java8
+  yum:
+    name: "{{ java.CENTOS_VERSION }}"
+    state: latest
+
+- name: GET jenkins repo yum URL
+  get_url:
+    url: "{{ jenkins.CENTOS_REPO }}"
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: Import GPG Key yum
+  rpm_key:
+    state: present
+    key: "{{ jenkins.CENTOS_GPG_KEY }}"
+
+- name: Check update
+  yum:
+    list: updates
+    update_cache: yes
+
+- name: Install Jenkins
+  yum:
+    name: jenkins
+    state: present
+  notify:
+    - Start Jenkins

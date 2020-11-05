@@ -1,5 +1,6 @@
 ---
 - name: Setup jenkins server
-  hosts: jenkinsserver
+  hosts: ubuntu
+  become: yes
   roles:
     - jenkins-server

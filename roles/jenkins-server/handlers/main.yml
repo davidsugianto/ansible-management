@@ -1,2 +1,7 @@
 ---
 # handlers file for jenkins-server
+- name: Start Jenkins
+  ansible.builtin.service:
+    name: jenkins
+    enabled: yes
+    state: started

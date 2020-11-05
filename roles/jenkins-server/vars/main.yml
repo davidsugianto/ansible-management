@@ -1,2 +1,13 @@
 ---
 # vars file for jenkins-server
+java:
+  CENTOS_VERSION: "java-1.8.0-openjdk"
+  # CENTOS_ALTERNATIVES: ""
+  DEBIAN_VERSION: "openjdk-8-jdk"
+  
+
+jenkins:
+  CENTOS_REPO: "https://pkg.jenkins.io/redhat-stable/jenkins.repo"
+  CENTOS_GPG_KEY: "https://pkg.jenkins.io/redhat-stable/jenkins.io.key"
+  DEBIAN_REPO: "deb https://pkg.jenkins.io/debian-stable binary/"
+  DEBIAN_GPG_KEY: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"

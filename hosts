@@ -4,18 +4,18 @@
 ## Test playbook to server
 
 [centos]
-192.168.56.104
+172.28.128.2
 [centos:vars]
 ansible_ssh_port=22
-ansible_ssh_user=root
+ansible_ssh_user=vagrant
 # need for some pythone version
 ansible_python_interpreter=/usr/bin/python2.7
 
 [ubuntu]
-192.168.56.105
+172.28.128.3
 [ubuntu:vars]
 ansible_ssh_port=22
-ansible_ssh_user=root
+ansible_ssh_user=vagrant
 # need for some pythone version
 ansible_python_interpreter=/usr/bin/python3
 
